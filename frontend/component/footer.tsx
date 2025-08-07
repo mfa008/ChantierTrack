@@ -43,12 +43,12 @@ export function Footer() {
               les entreprises dans leur transformation digitale.
             </p>
             <div className="flex space-x-4">
-              <a
+              {/* <a
                 href="#"
                 className="text-gray-400 hover:text-blue-400 transition-colors"
               >
                 <Facebook className="h-5 w-5" />
-              </a>
+              </a> */}
               <a
                 href="#"
                 className="text-gray-400 hover:text-blue-400 transition-colors"

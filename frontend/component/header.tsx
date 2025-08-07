@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import { Button } from './ui/button';
-// import Image from 'next/image';
+import Image from 'next/image';
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -34,8 +34,8 @@ export function Header() {
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-2">
             {/* <Monitor className="h-8 w-8 text-blue-600" /> */}
-            {/* <Image src="images/BM.png" alt="" width={40} height={40} /> */}
-            {/* <span className="text-2xl font-bold text-white">BM-Technologies</span> */}
+            <Image src="/Images/LogoEats.png" alt="" width={40} height={40} />
+            <span className="text-2xl font-bold text-blue-500">Plateforme de Suivi de l&apos;Avancement des Chantiers </span>
           </div>
 
           {/* Desktop Navigation */}
