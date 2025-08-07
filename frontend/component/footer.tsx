@@ -2,12 +2,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import {
-  Monitor,
   Mail,
   Phone,
   MapPin,
   Clock,
-  Facebook,
   Twitter,
   Linkedin,
   Instagram,
@@ -43,12 +41,6 @@ export function Footer() {
               les entreprises dans leur transformation digitale.
             </p>
             <div className="flex space-x-4">
-              {/* <a
-                href="#"
-                className="text-gray-400 hover:text-blue-400 transition-colors"
-              >
-                <Facebook className="h-5 w-5" />
-              </a> */}
               <a
                 href="#"
                 className="text-gray-400 hover:text-blue-400 transition-colors"
@@ -56,13 +48,13 @@ export function Footer() {
                 <Twitter className="h-5 w-5" />
               </a>
               <a
-                href="#"
+                href="https://www.linkedin.com/company/eats-tech/"
                 className="text-gray-400 hover:text-blue-400 transition-colors"
               >
                 <Linkedin className="h-5 w-5" />
               </a>
               <a
-                href="#"
+                href="https://www.instagram.com/eatstech/"
                 className="text-gray-400 hover:text-blue-400 transition-colors"
               >
                 <Instagram className="h-5 w-5" />
