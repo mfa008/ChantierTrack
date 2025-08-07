@@ -11,7 +11,8 @@ export default function Hero() {
           Suivez vos chantiers en temps réel
         </h1>
         <p className="text-gray-700 text-lg">
-          Une plateforme intuitive pour connecter les équipes de terrain et de bureau.
+          Une plateforme intuitive pour connecter les équipes de terrain et de
+          bureau.
         </p>
         <div>
           <a
@@ -23,14 +24,15 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Image à droite */}
-      <div className="md:w-1/2">
+      
+      <div className="md:w-1/2 w-full ">
         <Image
-          src="/images/LogoEats.png" 
-          alt="Logo de l'entreprise "
-          width={600}
-          height={400}
-          className="rounded-xl shadow-lg w-full h-auto"
+          src="/Images/LogoEats.png"
+          alt="Logo de l'entreprise"
+          width={500}
+          height={250}
+          priority
+          className="rounded-xl shadow-lg h-auto object-contain justify-center"
         />
       </div>
     </section>
