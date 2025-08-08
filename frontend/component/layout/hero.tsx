@@ -1,7 +1,8 @@
 "use client";
-import React, { useState, useEffect } from 'react';
-import { ChevronRight, BarChart3, Users, Zap } from 'lucide-react';
-import Image from 'next/image';
+import React, { useState, useEffect } from "react";
+import { ChevronRight, BarChart3, Users, Zap } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 
 export default function Hero() {
   const [isVisible, setIsVisible] = useState(false);
@@ -13,7 +14,7 @@ export default function Hero() {
   const features = [
     { icon: BarChart3, text: "Suivi en temps réel" },
     { icon: Users, text: "Équipes connectées" },
-    { icon: Zap, text: "Performance optimisée" }
+    { icon: Zap, text: "Performance optimisée" },
   ];
 
   useEffect(() => {
@@ -52,17 +53,21 @@ export default function Hero() {
             left: p.left,
             top: p.top,
             animationDelay: p.delay,
-            animationDuration: p.duration
+            animationDuration: p.duration,
           }}
         ></div>
       ))}
 
       <div className="relative z-10 container mx-auto px-4 sm:px-6 md:px-8 h-full py-16 flex items-center">
         <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          
           {/* Left content */}
-          <div className={`space-y-8 transition-all mt-30 duration-1000 ${isVisible ? 'translate-x-0 opacity-100' : '-translate-x-full opacity-0'}`}>
-            
+          <div
+            className={`space-y-8 transition-all mt-30 duration-1000 ${
+              isVisible
+                ? "translate-x-0 opacity-100"
+                : "-translate-x-full opacity-0"
+            }`}
+          >
             <div className="space-y-4 text-center lg:text-left">
               <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black leading-tight">
                 <span className="bg-gradient-to-r from-white via-gray-100 to-slate-200 bg-clip-text text-transparent animate-pulse">
@@ -78,9 +83,9 @@ export default function Hero() {
                   <div
                     key={index}
                     className={`flex items-center space-x-2 transition-all duration-500 ${
-                      currentFeature === index 
-                        ? 'scale-110 opacity-100' 
-                        : 'scale-90 opacity-40'
+                      currentFeature === index
+                        ? "scale-110 opacity-100"
+                        : "scale-90 opacity-40"
                     }`}
                   >
                     <Feature.icon className="w-5 h-5 text-white" />
@@ -94,16 +99,25 @@ export default function Hero() {
 
             {/* Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-              <button className="w-full sm:w-auto group relative px-8 py-4 bg-gradient-to-r from-white to-gray-100 text-gray-900 font-semibold rounded-2xl transform transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-white/25">
+              <Link
+                href="/connexion"
+                className="w-full sm:w-auto group relative px-8 py-4 bg-gradient-to-r from-white to-gray-100 text-gray-900 font-semibold rounded-2xl transform transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-white/25"
+              >
                 <span className="flex items-center justify-center space-x-2">
                   <span>Commencer</span>
                   <ChevronRight className="w-5 h-5 transform group-hover:translate-x-1 transition-transform" />
                 </span>
                 <div className="absolute inset-0 bg-gradient-to-r from-gray-100 to-white rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity -z-10"></div>
-              </button>
+              </Link>
             </div>
           </div>
-          <div className={`relative transition-all mt-30 duration-1000 delay-300 ${isVisible ? 'translate-x-0 opacity-100' : 'translate-x-full opacity-0'}`}>
+          <div
+            className={`relative transition-all mt-30 duration-1000 delay-300 ${
+              isVisible
+                ? "translate-x-0 opacity-100"
+                : "translate-x-full opacity-0"
+            }`}
+          >
             <div className="relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-lg rounded-3xl p-6 border border-white/20 shadow-2xl overflow-hidden">
               <div className="flex items-center justify-between mb-4">
                 <div className="flex space-x-2">
@@ -117,7 +131,7 @@ export default function Hero() {
                 <Image
                   src="/Images/LogoEats.png"
                   alt="Logo de l'entreprise"
-                  width={400} 
+                  width={400}
                   height={400}
                   className="w-full h-auto max-h-80 object-contain rounded-2xl transform transition-all duration-700 group-hover:scale-105 filter drop-shadow-2xl"
                 />
@@ -141,7 +155,13 @@ export default function Hero() {
             <div className="absolute -bottom-4 -left-4 w-6 h-6 sm:w-8 sm:h-8 bg-gradient-to-r from-green-400 to-blue-400 rounded-xl animate-bounce delay-300 shadow-lg shadow-green-400/25"></div>
 
             <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-              <div className="w-4 h-4 bg-cyan-400/60 rounded-full animate-spin" style={{ animationDuration: '8s', transformOrigin: '100px 0px' }}></div>
+              <div
+                className="w-4 h-4 bg-cyan-400/60 rounded-full animate-spin"
+                style={{
+                  animationDuration: "8s",
+                  transformOrigin: "100px 0px",
+                }}
+              ></div>
             </div>
           </div>
         </div>
