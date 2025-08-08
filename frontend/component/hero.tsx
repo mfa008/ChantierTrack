@@ -103,7 +103,6 @@ export default function Hero() {
               </button>
             </div>
           </div>
-          {/* Right visual */}
           <div className={`relative transition-all mt-30 duration-1000 delay-300 ${isVisible ? 'translate-x-0 opacity-100' : 'translate-x-full opacity-0'}`}>
             <div className="relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-lg rounded-3xl p-6 border border-white/20 shadow-2xl overflow-hidden">
               <div className="flex items-center justify-between mb-4">
@@ -138,11 +137,9 @@ export default function Hero() {
               </div>
             </div>
 
-            {/* Floating shapes */}
             <div className="absolute -top-6 -right-6 w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-pink-400 to-purple-400 rounded-2xl animate-bounce delay-100 shadow-lg shadow-pink-400/25"></div>
             <div className="absolute -bottom-4 -left-4 w-6 h-6 sm:w-8 sm:h-8 bg-gradient-to-r from-green-400 to-blue-400 rounded-xl animate-bounce delay-300 shadow-lg shadow-green-400/25"></div>
 
-            {/* Orbiting dot */}
             <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
               <div className="w-4 h-4 bg-cyan-400/60 rounded-full animate-spin" style={{ animationDuration: '8s', transformOrigin: '100px 0px' }}></div>
             </div>
