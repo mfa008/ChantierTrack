@@ -1,7 +1,7 @@
 "use client";
-import React, { useState, useEffect } from 'react';
-import { Eye, EyeOff, Mail, Lock, ChevronRight, Shield, User } from 'lucide-react';
-import Image from 'next/image';
+import React, { useState, useEffect } from "react";
+import { Eye, EyeOff, Mail, Lock, ChevronRight, Shield } from "lucide-react";
+// import Image from 'next/image';
 
 export default function LoginForm() {
   const [isVisible, setIsVisible] = useState(false);
@@ -10,15 +10,15 @@ export default function LoginForm() {
   const [particles, setParticles] = useState<
     { left: string; top: string; delay: string; duration: string }[]
   >([]);
-  
+
   const [formData, setFormData] = useState({
-    email: '',
-    password: ''
+    email: "",
+    password: "",
   });
 
   const [errors, setErrors] = useState({
-    email: '',
-    password: ''
+    email: "",
+    password: "",
   });
 
   useEffect(() => {
@@ -35,34 +35,35 @@ export default function LoginForm() {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-    
+    setFormData((prev) => ({ ...prev, [name]: value }));
+
     // Clear errors when user starts typing
     if (errors[name as keyof typeof errors]) {
-      setErrors(prev => ({ ...prev, [name]: '' }));
+      setErrors((prev) => ({ ...prev, [name]: "" }));
     }
   };
 
   const validateForm = () => {
-    const newErrors = { email: '', password: '' };
+    const newErrors = { email: "", password: "" };
     let isValid = true;
 
     // Email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!formData.email) {
-      newErrors.email = 'L\'email est requis';
+      newErrors.email = "L'email est requis";
       isValid = false;
     } else if (!emailRegex.test(formData.email)) {
-      newErrors.email = 'Format d\'email invalide';
+      newErrors.email = "Format d'email invalide";
       isValid = false;
     }
 
     // Password validation
     if (!formData.password) {
-      newErrors.password = 'Le mot de passe est requis';
+      newErrors.password = "Le mot de passe est requis";
       isValid = false;
     } else if (formData.password.length < 6) {
-      newErrors.password = 'Le mot de passe doit contenir au moins 6 caractères';
+      newErrors.password =
+        "Le mot de passe doit contenir au moins 6 caractères";
       isValid = false;
     }
 
@@ -72,18 +73,53 @@ export default function LoginForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!validateForm()) return;
 
     setIsLoading(true);
-    
+
     // Simulation d'une requête de connexion
+    // try {
+    //   await new Promise(resolve => setTimeout(resolve, 2000));
+    //   console.log('Connexion réussie:', formData);
+    //   // Redirection ou actions post-connexion ici
+    // } catch (error) {
+    //   console.error('Erreur de connexion:', error);
+    // } finally {
+    //   setIsLoading(false);
+    // }
     try {
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      console.log('Connexion réussie:', formData);
-      // Redirection ou actions post-connexion ici
+      const response = await fetch("http://localhost:8000/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          // Si besoin d'autoriser les cookies (ex: avec Sanctum) :
+          // "Accept": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        console.log("Connexion réussie :", data);
+        // Stocker le token (si tu en reçois un)
+        localStorage.setItem("token", data.token);
+        // Rediriger ou effectuer une action
+      } else {
+        console.error("Erreur de connexion :", data);
+        // Afficher un message d'erreur
+        setErrors((prev) => ({
+          ...prev,
+          password: data.message || "Erreur de connexion",
+        }));
+      }
     } catch (error) {
-      console.error('Erreur de connexion:', error);
+      console.error("Erreur réseau :", error);
+      setErrors((prev) => ({
+        ...prev,
+        password: "Erreur réseau",
+      }));
     } finally {
       setIsLoading(false);
     }
@@ -107,29 +143,33 @@ export default function LoginForm() {
             left: p.left,
             top: p.top,
             animationDelay: p.delay,
-            animationDuration: p.duration
+            animationDuration: p.duration,
           }}
         ></div>
       ))}
 
       <div className="relative z-10 container mx-auto px-4 sm:px-6 md:px-8">
         <div className="max-w-md mx-auto">
-          
           {/* Login Card */}
-          <div className={`relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-lg rounded-3xl p-8 border border-white/20 shadow-2xl transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'}`}>
-            
+          <div
+            className={`relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-lg rounded-3xl p-8 border border-white/20 shadow-2xl transition-all duration-1000 ${
+              isVisible
+                ? "translate-y-0 opacity-100"
+                : "translate-y-full opacity-0"
+            }`}
+          >
             {/* Header */}
             <div className="text-center mb-8">
               <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl mb-4 shadow-lg shadow-blue-500/25">
                 <Shield className="w-8 h-8 text-white" />
               </div>
-              
+
               <h1 className="text-3xl font-black text-white mb-2">
                 <span className="bg-gradient-to-r from-white via-gray-100 to-slate-200 bg-clip-text text-transparent">
                   Connexion
                 </span>
               </h1>
-              
+
               <p className="text-gray-400 text-sm">
                 Accédez à votre espace ChantiersTrack
               </p>
@@ -137,10 +177,12 @@ export default function LoginForm() {
 
             {/* Form */}
             <form onSubmit={handleSubmit} className="space-y-6">
-              
               {/* Email Field */}
               <div className="space-y-2">
-                <label htmlFor="email" className="block text-sm font-medium text-gray-300">
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-medium text-gray-300"
+                >
                   Adresse email
                 </label>
                 <div className="relative">
@@ -153,7 +195,9 @@ export default function LoginForm() {
                     name="email"
                     value={formData.email}
                     onChange={handleInputChange}
-                    className={`w-full pl-10 pr-4 py-3 bg-white/5 border ${errors.email ? 'border-red-400' : 'border-white/20'} rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 backdrop-blur-sm`}
+                    className={`w-full pl-10 pr-4 py-3 bg-white/5 border ${
+                      errors.email ? "border-red-400" : "border-white/20"
+                    } rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 backdrop-blur-sm`}
                     placeholder="votre.email@exemple.com"
                   />
                 </div>
@@ -167,7 +211,10 @@ export default function LoginForm() {
 
               {/* Password Field */}
               <div className="space-y-2">
-                <label htmlFor="password" className="block text-sm font-medium text-gray-300">
+                <label
+                  htmlFor="password"
+                  className="block text-sm font-medium text-gray-300"
+                >
                   Mot de passe
                 </label>
                 <div className="relative">
@@ -180,7 +227,9 @@ export default function LoginForm() {
                     name="password"
                     value={formData.password}
                     onChange={handleInputChange}
-                    className={`w-full pl-10 pr-12 py-3 bg-white/5 border ${errors.password ? 'border-red-400' : 'border-white/20'} rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 backdrop-blur-sm`}
+                    className={`w-full pl-10 pr-12 py-3 bg-white/5 border ${
+                      errors.password ? "border-red-400" : "border-white/20"
+                    } rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 backdrop-blur-sm`}
                     placeholder="••••••••"
                   />
                   <button
@@ -188,7 +237,11 @@ export default function LoginForm() {
                     onClick={() => setShowPassword(!showPassword)}
                     className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-300 transition-colors"
                   >
-                    {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                    {showPassword ? (
+                      <EyeOff className="w-5 h-5" />
+                    ) : (
+                      <Eye className="w-5 h-5" />
+                    )}
                   </button>
                 </div>
                 {errors.password && (
@@ -206,9 +259,11 @@ export default function LoginForm() {
                     type="checkbox"
                     className="w-4 h-4 text-blue-500 bg-white/5 border-white/20 rounded focus:ring-blue-500 focus:ring-2"
                   />
-                  <span className="text-sm text-gray-300">Se souvenir de moi</span>
+                  <span className="text-sm text-gray-300">
+                    Se souvenir de moi
+                  </span>
                 </label>
-                
+
                 <button
                   type="button"
                   className="text-sm text-blue-400 hover:text-blue-300 transition-colors"
@@ -237,13 +292,12 @@ export default function LoginForm() {
                   )}
                 </span>
               </button>
-
             </form>
 
             {/* Footer */}
             <div className="mt-8 text-center">
               <p className="text-gray-400 text-sm">
-                Pas encore de compte ?{' '}
+                Pas encore de compte ?{" "}
                 <button className="text-blue-400 hover:text-blue-300 transition-colors font-medium">
                   Créer un compte
                 </button>
@@ -256,7 +310,13 @@ export default function LoginForm() {
           </div>
 
           {/* Trust Indicators */}
-          <div className={`mt-8 flex items-center justify-center space-x-6 transition-all duration-1000 delay-300 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'}`}>
+          <div
+            className={`mt-8 flex items-center justify-center space-x-6 transition-all duration-1000 delay-300 ${
+              isVisible
+                ? "translate-y-0 opacity-100"
+                : "translate-y-full opacity-0"
+            }`}
+          >
             <div className="flex items-center space-x-2 text-gray-400">
               <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
               <span className="text-xs">Connexion sécurisée</span>
